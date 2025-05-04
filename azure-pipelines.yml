@@ -24,7 +24,7 @@ stages:
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
         deploymentScope: 'Resource Group'
-        azureResourceManagerConnection: 'hiddentigersurya'
+        azureResourceManagerConnection: 'AzureServiceConnection'
         subscriptionId: 'b3bbf150-02af-45fa-a4b5-a8e94fed8d2a'
         action: 'Create Or Update Resource Group'
         resourceGroupName: 'surya_rg'
@@ -56,7 +56,7 @@ stages:
           - task: AzureResourceManagerTemplateDeployment@3
             inputs:
               deploymentScope: 'Resource Group'
-              azureResourceManagerConnection: 'hiddentigersurya'
+              azureResourceManagerConnection: 'AzureServiceConnection'
               subscriptionId: 'b3bbf150-02af-45fa-a4b5-a8e94fed8d2a'
               action: 'Create Or Update Resource Group'
               resourceGroupName: 'surya_rg'
