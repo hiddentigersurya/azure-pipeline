@@ -24,10 +24,10 @@ stages:
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
         deploymentScope: 'Resource Group'
-        azureResourceManagerConnection: 'adf-cnn'
-        subscriptionId: 'ed1dac6a-b8f5-427b-a1c7-b695e618f891'
+        azureResourceManagerConnection: 'hiddentigersurya'
+        subscriptionId: 'b3bbf150-02af-45fa-a4b5-a8e94fed8d2a'
         action: 'Create Or Update Resource Group'
-        resourceGroupName: 'batch10439rg'
+        resourceGroupName: 'surya_rg'
         location: 'centralindia'
         templateLocation: 'Linked artifact'
         csmFile: 'ARMTemplateForFactory.json'
@@ -56,10 +56,10 @@ stages:
           - task: AzureResourceManagerTemplateDeployment@3
             inputs:
               deploymentScope: 'Resource Group'
-              azureResourceManagerConnection: 'adf-cnn'
-              subscriptionId: 'ed1dac6a-b8f5-427b-a1c7-b695e618f891'
+              azureResourceManagerConnection: 'hiddentigersurya'
+              subscriptionId: 'b3bbf150-02af-45fa-a4b5-a8e94fed8d2a'
               action: 'Create Or Update Resource Group'
-              resourceGroupName: 'batch10439rg'
+              resourceGroupName: 'surya_rg'
               location: 'centralindia'
               templateLocation: 'Linked artifact'
               csmFile: 'ARMTemplateForFactory.json'
