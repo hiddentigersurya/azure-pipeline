@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "factoryName": {
-            "value": "batch01439DF"
+            "value": "suryadatafactory11"
         },
         "AzureBlobStorage1_connectionString": {
             "value": ""
