@@ -1,0 +1,67 @@
+trigger:
+  branches:
+    include:
+      - main
+
+stages:
+- stage: Dev
+  displayName: 'Deploy to Dev Data Factory'
+  jobs:
+  - job: DeployADF
+    displayName: 'ARM Template Deployment to Dev'
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - checkout: self
+
+    # 🔍 Debug: List files in the repo
+    - script: |
+       echo "Listing files in repo root:"
+       dir
+      displayName: 'List files in build directory'
+
+
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'adf-cnn'
+        subscriptionId: 'ed1dac6a-b8f5-427b-a1c7-b695e618f891'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'batch10439rg'
+        location: 'centralindia'
+        templateLocation: 'Linked artifact'
+        csmFile: 'ARMTemplateForFactory.json'
+        csmParametersFile: 'ARMTemplateParametersForFactory.json'
+        deploymentMode: 'Incremental'
+
+- stage: Prod
+  displayName: 'Deploy to Production Data Factory'
+  dependsOn: Dev
+  condition: succeeded()
+  jobs:
+  - deployment: DeployProd
+    environment: 'Production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+
+          # 🔍 Debug: List files in the repo
+          - script: |
+             echo "Listing files in repo root:"
+             dir
+            displayName: 'List files in build directory'
+
+          - task: AzureResourceManagerTemplateDeployment@3
+            inputs:
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'adf-cnn'
+              subscriptionId: 'ed1dac6a-b8f5-427b-a1c7-b695e618f891'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'batch10439rg'
+              location: 'centralindia'
+              templateLocation: 'Linked artifact'
+              csmFile: 'ARMTemplateForFactory.json'
+              csmParametersFile: 'ARMTemplateParametersForFactory.json'
+              deploymentMode: 'Incremental'
